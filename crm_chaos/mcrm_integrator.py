@@ -1,7 +1,5 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-import matplotlib.pyplot as plt
-plt.ion()
 
 
 def draw_alpha_d_matix(S, mu, sigma, gamma):
@@ -65,11 +63,6 @@ def integrate(alpha, K, t_span, migration=1e-10, N0=None, num_samples=1000):
 
 
 def run_mcrm(S, M, mu_c, sigma_c, mu_d, sigma_d, gamma,
-             mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio,
-             t_span, species_to_plot=30):
-
+             mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio, t_span):
     alpha, K = draw_interactions(S, M, mu_c, sigma_c, mu_d, sigma_d, gamma, mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio)
-    t, N = integrate(alpha, K, t_span)
-
-    for i in range(min(S, species_to_plot)):
-        plt.semilogy(t, N[i, :])
+    return integrate(alpha, K, t_span)

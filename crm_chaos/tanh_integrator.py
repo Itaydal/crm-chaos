@@ -1,7 +1,5 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-import matplotlib.pyplot as plt
-plt.ion()
 
 
 def draw_interactions(S, M, mu_c, sigma_c, mu_K, sigma_K, mu_m, sigma_m):
@@ -52,14 +50,7 @@ def integrate(c, K, m, w, t_span, migration=1e-10, N0=None, num_samples=1000):
     return res.t, res.y
 
 
-def run_tanh_model(S, M, mu_c, sigma_c, mu_K, sigma_K, mu_m, sigma_m, w, t_span, species_to_plot=30):
+def run_tanh_model(S, M, mu_c, sigma_c, mu_K, sigma_K, mu_m, sigma_m, w, t_span):
     c, K, m = draw_interactions(S, M, mu_c, sigma_c, mu_K, sigma_K, mu_m, sigma_m)
-    t, N = integrate(c, K, m, w, t_span)
-
-    for i in range(min(S, species_to_plot)):
-        plt.semilogy(t, N[i, :])
-
-
-
-
+    return integrate(c, K, m, w, t_span)
 
