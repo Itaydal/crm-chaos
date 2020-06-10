@@ -47,7 +47,7 @@ def get_jac(alpha, K):
     return jac
 
 
-def integrate(alpha, K, t_span, migration=1e-10, N0=None, num_samples=1000):
+def integrate(alpha, K, t_span, migration=1e-15, N0=None, num_samples=1000):
     S = alpha.shape[0]
     t_eval = np.linspace(0., t_span, num=num_samples)
     N0 = np.random.rand(S) if (N0 is None) else N0
@@ -62,7 +62,7 @@ def integrate(alpha, K, t_span, migration=1e-10, N0=None, num_samples=1000):
     return res.t, res.y
 
 
-def run_mcrm(S, M, mu_c, sigma_c, mu_d, sigma_d, gamma,
-             mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio, t_span):
+def run_reduced_mcrm(S, M, mu_c, sigma_c, mu_d, sigma_d, gamma,
+                     mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio, t_span):
     alpha, K = draw_interactions(S, M, mu_c, sigma_c, mu_d, sigma_d, gamma, mu_K, sigma_K, mu_m, sigma_m, mat_norm_ratio)
     return integrate(alpha, K, t_span)
